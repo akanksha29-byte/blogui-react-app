@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Posts from "./components/Post/Posts";
+import DetailedPost from "./components/DetailedPost/DetailedPost";
+import { PostProvider } from "./context/postContext";
+import Header from "./components/Header/Header";
+import BlogForm from "./components/Form/BlogForm";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <PostProvider>
+      <Router>
+        <Header />
+        <div
+          className="d-flex justify-content-center align-items-center "
+          style={{ marginTop: "70px" }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Switch>
+            <Route path="/create-post" component={BlogForm} />
+
+            <Route path="/:id" component={DetailedPost} />
+            <Route path="/" exact>
+              <Posts />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </PostProvider>
   );
-}
+};
 
 export default App;
